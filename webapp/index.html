@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>Calculadora de Calagem - IAC</title>
+<meta name="theme-color" content="#1b5e20" />
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="icons/icon-192.png" />
+<link rel="apple-touch-icon" href="icons/icon-192.png" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="topo">
+  <img src="assets/unesp.jpg" alt="UNESP" class="logo logo-unesp" />
+  <div class="titulo">
+    <h1>Calculadora de Calagem - IAC</h1>
+    <p>UNESP / UNOESTE</p>
+  </div>
+  <img src="assets/unoeste.png" alt="UNOESTE" class="logo logo-unoeste" />
+</header>
+
+<main>
+  <section id="painel-bases" class="painel visivel" role="tabpanel">
+    <p class="subtitulo">Método da saturação por bases (V%) - Boletim 100/IAC</p>
+    <form id="form-bases">
+      <div class="campo">
+        <label for="ctc">CTC a pH 7,0</label>
+        <input type="text" id="ctc" inputmode="decimal" placeholder="Ex: 8,0" required />
+        <div class="unidade">
+          <label><input type="radio" name="unidade" value="cmolc" checked /> cmolc/dm³</label>
+          <label><input type="radio" name="unidade" value="mmolc" /> mmolc/dm³ (laudo IAC/SP)</label>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="v1">Saturação por bases atual - V1 (%)</label>
+        <input type="text" id="v1" inputmode="decimal" placeholder="Ex: 45" required />
+      </div>
+
+      <div class="campo">
+        <label for="v2">Saturação por bases desejada - V2 (%)</label>
+        <input type="text" id="v2" inputmode="decimal" placeholder="Ex: 70" required />
+      </div>
+
+      <div class="campo">
+        <label for="prnt">PRNT do calcário (%)</label>
+        <input type="text" id="prnt" inputmode="decimal" placeholder="Ex: 90" required />
+      </div>
+
+      <div class="campo">
+        <label for="area">Área a corrigir (ha) [opcional]</label>
+        <input type="text" id="area" inputmode="decimal" placeholder="Ex: 10" />
+      </div>
+
+      <p class="aviso">
+        Confira a unidade no seu laudo de solo antes de calcular — usar a
+        unidade errada muda o resultado em 10x.
+      </p>
+
+      <button type="submit">Calcular</button>
+    </form>
+    <div id="resultado-bases" class="resultado" role="status" aria-live="polite"></div>
+    <div id="erro-bases" class="erro" role="alert"></div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <p><strong>Referência</strong></p>
+  <p>RAIJ, B. van et al. Recomendações de adubação e calagem
+     para o estado de São Paulo. 2. ed. Campinas: IAC, 1996. (Boletim Técnico, 100).</p>
+</footer>
+
+<script src="app.js"></script>
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("service-worker.js");
+    });
+  }
+</script>
+</body>
+</html>
