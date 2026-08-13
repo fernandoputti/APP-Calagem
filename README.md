@@ -10,19 +10,29 @@ do Instituto Agronômico de Campinas (IAC).
 Documentação completa (manual de instalação/uso e memorial descritivo)
 em [`Documentacao/`](Documentacao/).
 
+**Versão web ao vivo:** https://fernandoputti.github.io/APP-Calagem/
+
 ## Estrutura
 
 ```
-calagem_calc.py      lógica de cálculo (desktop, Python) - sem dependência de interface
-calagem_app.py        interface gráfica desktop (Tkinter)
-assets/                logos institucionais
-webapp/                versão web (PWA): index.html, app.js, style.css, manifest.json
-Documentacao/           Manual de Instalação e Uso + Memorial Descritivo (INPI)
+index.html, app.js, style.css    versão web (PWA), servida a partir da raiz do repositório
+manifest.json, service-worker.js  configuração do PWA (instalável, funciona offline)
+assets/, icons/                    logos institucionais e ícones do PWA
+desktop/calagem_calc.py            lógica de cálculo (Python) - sem dependência de interface
+desktop/calagem_app.py             interface gráfica desktop (Tkinter)
+desktop/assets/                    cópia dos logos, usada no empacotamento do .exe
+Documentacao/                      Manual de Instalação e Uso + Memorial Descritivo (INPI)
 ```
 
-## Rodar a partir do código-fonte
+A raiz do repositório é dedicada à versão web para que o GitHub Pages
+sirva o aplicativo diretamente (Settings → Pages → Deploy from branch
+→ main / root). O código desktop fica isolado em `desktop/` com sua
+própria cópia dos logos.
+
+## Rodar a versão desktop a partir do código-fonte
 
 ```bash
+cd desktop
 pip install pillow
 python calagem_app.py
 ```
@@ -30,17 +40,18 @@ python calagem_app.py
 ## Gerar o executável Windows (.exe)
 
 ```bash
+cd desktop
 pip install pillow pyinstaller
 pyinstaller --onefile --windowed --name CalculadoraCalagem_IAC --add-data "assets;assets" calagem_app.py
 ```
 
-O executável é gerado em `dist/CalculadoraCalagem_IAC.exe`.
+O executável é gerado em `desktop/dist/CalculadoraCalagem_IAC.exe`.
 
 ## Versão web
 
-Basta servir o conteúdo da pasta `webapp/` por qualquer servidor HTTP
-estático (ex.: GitHub Pages) — é um aplicativo web progressivo (PWA),
-funciona offline após o primeiro acesso.
+A raiz do repositório já é o aplicativo web (PWA) — publicada via
+GitHub Pages em https://fernandoputti.github.io/APP-Calagem/.
+Funciona offline após o primeiro acesso.
 
 ## Fórmula implementada
 
